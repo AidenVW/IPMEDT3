@@ -1,5 +1,3 @@
-//  animation="property: scale; loop: true; dur: 1200; from: 1 1 1; to: 1.5 1.5 1.5; dir:alternate;"
-
 window.onload = () => {
     const camera = document.getElementById('js--camera');
     const scene = document.getElementById('scene')
