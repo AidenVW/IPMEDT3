@@ -24,10 +24,9 @@ window.onload = () => {
                 spotAppear(cpuSpot.id)
                 cpuSpot.addEventListener('click', function(){
                     motherboardInnerContainer.innerHTML += '<a-entity id="js--cpu" class="js--pickup" gltf-model="models/amd_ryzen_5_3600_cpu.glb" scale="0.05 0.05 0.05" position="-0.25 0.6 -0.125" rotation="90 0 0"></a-entity>'
-                    // makePickupable('js--cpuFan')
+                    makePickupable('js--cpuFan')
                     resetValues()
-                    makePickupable('js--motherboard')
-                    pickUpMotherboard()
+                    
                 })
                 break
             case 'cpuFan':
@@ -46,6 +45,7 @@ window.onload = () => {
                     motherboardInnerContainer.innerHTML += '<a-entity id="js--ram1" class="js--pickup" gltf-model="models/ram_corsair_vengeance_lpx.glb" scale="0.055 0.055 0.055" position="-0.2 0.54 -0.17" rotation="90 90 0"></a-entity>'
                     motherboardInnerContainer.innerHTML += '<a-entity id="js--ram2" class="js--pickup" gltf-model="models/ram_corsair_vengeance_lpx.glb" scale="0.055 0.055 0.055" position="-0.16 0.54 -0.17" rotation="90 90 0" visible="true"></a-entity>'
                     makePickupable('js--motherboard')
+                    pickUpMotherboard()
                     resetValues()
                 })
                 break
@@ -70,10 +70,11 @@ window.onload = () => {
 
     function pickUpMotherboard(){
         const motherboard = document.getElementById('js--motherboard')
+        const motherboardInnerContainer = document.getElementById('motherboardInnerContainer')
         motherboard.addEventListener('click', function(){
             camera.innerHTML += document.getElementById('motherboardContainer').innerHTML
             document.getElementById('motherboardInnerContainer').setAttribute('position', '0.5 -1 -1')
-            this.remove()
+            motherboardInnerContainer.remove()
         })
     }
 
