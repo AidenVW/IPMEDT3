@@ -1,0 +1,11 @@
+Model Information:
+* title:	NZXT H500 PC Case
+* source:	https://sketchfab.com/3d-models/nzxt-h500-pc-case-e0e3dbab28014eb19a123c1be69d42b3
+* author:	max.boylen (https://sketchfab.com/max.boylen)
+
+Model License:
+* license type:	CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
+* requirements:	Author must be credited. Commercial use is allowed.
+
+If you use this 3D model in your project be sure to copy paste this credit wherever you share it:
+This work is based on "NZXT H500 PC Case" (https://sketchfab.com/3d-models/nzxt-h500-pc-case-e0e3dbab28014eb19a123c1be69d42b3) by max.boylen (https://sketchfab.com/max.boylen) licensed under CC-BY-4.0 (http://creativecommons.org/licenses/by/4.0/)
