@@ -6,6 +6,9 @@ window.onload = () => {
     let pickups = document.getElementsByClassName("js--pickup");
     var hold = null
     var placesCasing
+    var motherboardCheck = null
+    var powerCheck = null
+    var ssdCheck = null
 
     function partPlacer(part) {
 
@@ -15,8 +18,9 @@ window.onload = () => {
                 spotAppear(gpuSpot.id)
                 gpuSpot.addEventListener('click', function(){
                     motherboardInnerContainer.innerHTML += '<a-entity id="js--gpu" class="js--pickup" gltf-model="models/rtx_3060_ti_low_poly.glb" scale="0.12 0.12 0.12" position="-0.12 0.31 -0.045" rotation="180 0 0"></a-entity>'
-                    
                     resetValues()
+                    let audio = new Audio("audio/put_down.mp3")
+                    audio.play()    
                 })
                 break
             case 'cpu':
@@ -26,7 +30,8 @@ window.onload = () => {
                     motherboardInnerContainer.innerHTML += '<a-entity id="js--cpu" class="js--pickup" gltf-model="models/amd_ryzen_5_3600_cpu.glb" scale="0.05 0.05 0.05" position="-0.25 0.6 -0.125" rotation="90 0 0"></a-entity>'
                     makePickupable('js--cpuFan')
                     resetValues()
-                    
+                    let audio = new Audio("audio/put_down.mp3")
+                    audio.play()    
                 })
                 break
             case 'cpuFan':
@@ -36,6 +41,8 @@ window.onload = () => {
                     motherboardInnerContainer.innerHTML += '<a-entity id="js--cpuFan" class="js--pickup" gltf-model="models/coaler_master_cpu_fan_animation_included.glb" scale="0.1 0.1 0.1" position="-0.25 0.6 -0.1"></a-entity>'
                     makePickupable('js--ram1')
                     resetValues()
+                    let audio = new Audio("audio/put_down.mp3")
+                    audio.play()    
                 })
                 break
             case 'ram':
@@ -44,17 +51,15 @@ window.onload = () => {
                 ramSpot.addEventListener('click', function(){
                     motherboardInnerContainer.innerHTML += '<a-entity id="js--ram1" class="js--pickup" gltf-model="models/ram_corsair_vengeance_lpx.glb" scale="0.055 0.055 0.055" position="-0.2 0.54 -0.17" rotation="90 90 0"></a-entity>'
                     motherboardInnerContainer.innerHTML += '<a-entity id="js--ram2" class="js--pickup" gltf-model="models/ram_corsair_vengeance_lpx.glb" scale="0.055 0.055 0.055" position="-0.16 0.54 -0.17" rotation="90 90 0" visible="true"></a-entity>'
+                    let audio = new Audio("audio/put_down.mp3")
+                    audio.play()    
                     
-                    //Make the items that go into the casing able to be picked up when the motherboard has everything on it
                     makePickupable('js--motherboard')
-                    makePickupable('js--power')
-                    makePickupable('js--ssd')
-
                     pickUpMotherboard()
                     resetValues()
                 })
                 break
-                
+        
         }
     }
 
@@ -79,6 +84,9 @@ window.onload = () => {
         motherboard.addEventListener('click', function(){
             pickupCasing()
             hold = "motherboard"
+            let audio = new Audio("audio/pick_up.mp3")
+            audio.play()
+
             camera.innerHTML += document.getElementById('motherboardContainer').innerHTML
             document.getElementById('motherboardInnerContainer').setAttribute('position', '0.5 -1 -1')
             motherboardInnerContainer.remove()
@@ -94,17 +102,22 @@ window.onload = () => {
         sphere.setAttribute("color", "lightblue");
         sphere.setAttribute("position", {x: positionX, y: positionY, z: positionZ});
         sphere.setAttribute("color", "lightblue");
-        sphere.setAttribute("radius", "0.2")
+        sphere.setAttribute("radius", "0.1")
         sphere.setAttribute("animation", "property: scale; loop: true; dur: 1200; from: 1 1 1; to: 1.5 1.5 1.5; dir:alternate;")
         scene.appendChild(sphere)
     }
 
-
     //Create the places where the item that is picked up can be put into the casing
     function pickupCasing(){
-        createSphere(-3, 2, -2.9, "places--power")
-        createSphere(-3, 0.8, -3.2, "places--motherboard")
-        createSphere(-4, 2, -2.9, "places--ssd")
+        if (motherboardCheck == null) {
+            createSphere(-3.5, 0.8, -3.05, "places--motherboard")
+        }
+        if (powerCheck == null) {
+            createSphere(-3, 1.7, -2.95, "places--power")
+        }
+        if (ssdCheck == null) {
+            createSphere(-3.5, 1.7, -2.95, "places--ssd")
+        }
 
         placesCasing = document.getElementsByClassName('js--placesCasing');
         checkPlacing()
@@ -137,12 +150,12 @@ window.onload = () => {
                             hold = 'ram'
                             break
                         case 'js--ssd':
-                            camera.innerHTML += '<a-entity id="js--ssd" gltf-model="models/ssd_solid-state_drive.glb" scale="0.05 0.05 0.05" position="0.5 -0.5 -1"></a-entity>'
+                            camera.innerHTML += '<a-entity id="js--ssd" gltf-model="models/ssd_solid-state_drive.glb" rotation="90 0 0" scale="0.05 0.05 0.05" position="0.5 -0.5 -1"></a-entity>'
                             pickupCasing()
                             hold = 'ssd'
                             break
                         case 'js--power':
-                            camera.innerHTML += '<a-entity id="js--power" class="js--interact js--pickup"  gltf-model="models/power_supply_basic.glb" scale="0.1 0.1 0.1" position="0.5 -0.5 -1"></a-entity>'
+                            camera.innerHTML += '<a-entity id="js--power" class="js--interact js--pickup"  gltf-model="models/power_supply_basic.glb" rotation="0 90 0" scale="0.1 0.1 0.1" position="0.5 -0.5 -1"></a-entity>'
                             pickupCasing()
                             hold = 'power'
                             break
@@ -162,27 +175,66 @@ window.onload = () => {
     
         //Event Listener that places the held item on the chosen spot
         function checkPlacing() {
-
             for (let i = 0; i < placesCasing.length; i++) {
-
                 placesCasing[i].addEventListener('click', function(evt){
                     checkHeldItem = "places--" + hold
                     if (hold != null && placesCasing[i].getAttribute("id") == ("places--" + hold) ){
-                        console.log("correct")
+
+                        //Play audio for placing the item in the correct spot
                         let audio = new Audio("audio/correct_answer.mp3")
                         audio.play()
-    
-                        //Create the picked up item on the chosen spot to put the item down at
-                        let holdId = 'js--' + hold
-                        holdModel = document.getElementById(holdId).getAttribute("gltf-model")
-                        scaleModel = document.getElementById(holdId).getAttribute("scale")
+                        
+                        let holdId
+                        //Placing the motherboard
+                        if (hold == "motherboard") {
+                            motherboardContainer = document.getElementById("motherboardContainer")
 
-                        let item = document.createElement('a-entity');
-                        item.setAttribute("id", holdId)
-                        item.setAttribute("gltf-model", holdModel)
-                        item.setAttribute("scale", scaleModel)
-                        item.setAttribute("position", {x: this.getAttribute('position').x, y: this.getAttribute('position').y, z: this.getAttribute('position').z});
-                        scene.appendChild(item);
+                            //Add the motherboard with items on top in the container
+                            motherboardContainer.innerHTML += document.getElementById("motherboardInnerContainer").innerHTML
+                            
+                            //Set the motherboard with items on top in the casing
+                            motherboardContainer.setAttribute('position', {x: this.getAttribute('position').x + 0.5, y: this.getAttribute('position').y, z: this.getAttribute('position').z})
+                            motherboardContainer.setAttribute('rotation', "-90 90 0")
+                            document.getElementById("js--motherboard").setAttribute("class", "")
+                            motherboardCheck = "check"
+
+                            makePickupable('js--power')
+                        }
+                        //Placing the power and the SSD
+                        else{
+                            holdId = 'js--' + hold
+                            // Get the attributes of the item that needs to be placed
+                            holdModel = document.getElementById(holdId).getAttribute("gltf-model")
+                            scaleModel = document.getElementById(holdId).getAttribute("scale")
+                            rotationModel = document.getElementById(holdId).getAttribute("rotation")
+
+                            //Create the picked up item on the chosen spot to put the item down at
+                            let item = document.createElement('a-entity');
+                            item.setAttribute("id", holdId)
+                            item.setAttribute("gltf-model", holdModel)
+                            item.setAttribute("scale", scaleModel)
+                            item.setAttribute("rotation", rotationModel)
+
+                            scene.appendChild(item);
+
+                            if (hold == "power") {
+                                item.setAttribute("position", {x: this.getAttribute('position').x, y: this.getAttribute('position').y, z: this.getAttribute('position').z});
+
+                                //Once the power supply has been put down in the right spot, the ssd can be picked up
+                                makePickupable('js--ssd')
+
+                                //The power supply cannot be picked up anymore after it's been put in the right spot
+                                document.getElementById(holdId).setAttribute("class", "")
+                                powerCheck = "check"
+                            }
+                            else if(hold == "ssd"){
+                                item.setAttribute("position", {x: this.getAttribute('position').x, y: this.getAttribute('position').y, z: this.getAttribute('position').z - 0.3});
+
+                                //The ssd cannot be picked up anymore after it's been put in the right spot
+                                document.getElementById(holdId).setAttribute("class", "")
+                                ssdCheck = "check"
+                            }
+                        }
 
                         //Remove the item that's being held
                         resetValues()
