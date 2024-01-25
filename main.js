@@ -3,6 +3,7 @@ window.onload = () => {
     const places = document.getElementsByClassName('js--places');
     const cameraHtml = camera.innerHTML
     const scene = document.getElementById('scene')
+    const motherboardInnerContainer = document.getElementById('motherboardInnerContainer')
     let pickups = document.getElementsByClassName("js--pickup");
     var hold = null
     var placesCasing
@@ -14,13 +15,15 @@ window.onload = () => {
 
         switch(part){
             case 'gpu':
+                console.log('click')
                 gpuSpot = document.getElementById('js--gpuSpot')
                 spotAppear(gpuSpot.id)
                 gpuSpot.addEventListener('click', function(){
-                    motherboardInnerContainer.innerHTML += '<a-entity id="js--gpu" class="js--pickup" gltf-model="models/rtx_3060_ti_low_poly.glb" scale="0.12 0.12 0.12" position="-0.12 0.31 -0.045" rotation="180 0 0"></a-entity>'
+                    motherboardContainer.innerHTML += '<a-entity id="js--gpu" class="js--pickup" gltf-model="models/rtx_3060_ti_low_poly.glb" scale="0.12 0.12 0.12" position="-0.12 0.31 -0.045" rotation="180 0 0"></a-entity>'
                     resetValues()
                     let audio = new Audio("audio/put_down.mp3")
                     audio.play()    
+                    connectCables()
                 })
                 break
             case 'cpu':
@@ -54,7 +57,7 @@ window.onload = () => {
                     let audio = new Audio("audio/put_down.mp3")
                     audio.play()    
                     
-                    makePickupable('js--motherboard')
+                    makePickupable('js--power')
                     pickUpMotherboard()
                     resetValues()
                 })
@@ -76,6 +79,27 @@ window.onload = () => {
     function resetValues(){    
         hold = null
         camera.innerHTML = cameraHtml
+    }
+
+    function connectCables(){
+        power = document.getElementById('js--power')
+        power.setAttribute('class', 'js--interact')
+        ssd = document.getElementById('js--ssd')
+        ssd.setAttribute('class', 'js--interact')
+        motherboard = document.getElementById('js--motherboard')
+        motherboard.setAttribute('class', 'js--interact')
+
+        ssd.addEventListener('click', function(){buttonHandler('js--power', 'js--cable1')})
+    }
+
+    function buttonHandler(nextButton, cable){
+        let cableWant = document.getElementById(cable)
+        console.log('hey')
+        document.addEventListener('click', function(event){
+            if(event.target.id == nextButton){
+                cableWant.setAttribute('visible', 'true')
+            }
+        })
     }
 
     function pickUpMotherboard(){
@@ -113,10 +137,10 @@ window.onload = () => {
             createSphere(-3.5, 0.8, -3.05, "places--motherboard")
         }
         if (powerCheck == null) {
-            createSphere(-3, 1.7, -2.95, "places--power")
+            createSphere(-3.5, 1.7, -2.95, "places--power")
         }
         if (ssdCheck == null) {
-            createSphere(-3.5, 1.7, -2.95, "places--ssd")
+            createSphere(-3, 1.7, -2.95, "places--ssd")
         }
 
         placesCasing = document.getElementsByClassName('js--placesCasing');
@@ -193,12 +217,12 @@ window.onload = () => {
                             motherboardContainer.innerHTML += document.getElementById("motherboardInnerContainer").innerHTML
                             
                             //Set the motherboard with items on top in the casing
-                            motherboardContainer.setAttribute('position', {x: this.getAttribute('position').x + 0.5, y: this.getAttribute('position').y, z: this.getAttribute('position').z})
-                            motherboardContainer.setAttribute('rotation', "-90 90 0")
+                            motherboardContainer.setAttribute('position', {x: this.getAttribute('position').x + 0.2, y: this.getAttribute('position').y - 0.3, z: this.getAttribute('position').z})
+                            motherboardContainer.setAttribute('rotation', "0 0 0")
                             document.getElementById("js--motherboard").setAttribute("class", "")
                             motherboardCheck = "check"
 
-                            makePickupable('js--power')
+                            makePickupable('js--ssd')
                         }
                         //Placing the power and the SSD
                         else{
@@ -218,10 +242,10 @@ window.onload = () => {
                             scene.appendChild(item);
 
                             if (hold == "power") {
-                                item.setAttribute("position", {x: this.getAttribute('position').x, y: this.getAttribute('position').y, z: this.getAttribute('position').z});
-
+                                item.setAttribute("position", {x: this.getAttribute('position').x -0.2, y: this.getAttribute('position').y + 0.1, z: this.getAttribute('position').z - 0.25});
+                                item.setAttribute('rotation', '0 -90 0')
                                 //Once the power supply has been put down in the right spot, the ssd can be picked up
-                                makePickupable('js--ssd')
+                                makePickupable('js--motherboard')
 
                                 //The power supply cannot be picked up anymore after it's been put in the right spot
                                 document.getElementById(holdId).setAttribute("class", "")
@@ -230,6 +254,7 @@ window.onload = () => {
                             else if(hold == "ssd"){
                                 item.setAttribute("position", {x: this.getAttribute('position').x, y: this.getAttribute('position').y, z: this.getAttribute('position').z - 0.3});
 
+                                makePickupable('js--gpu')
                                 //The ssd cannot be picked up anymore after it's been put in the right spot
                                 document.getElementById(holdId).setAttribute("class", "")
                                 ssdCheck = "check"

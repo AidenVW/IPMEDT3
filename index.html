@@ -23,6 +23,8 @@
             </a-entity>
         </a-camera>
 
+        
+
         <a-entity id="motherboardContainer">
             <a-entity position="0 1 -2" id="motherboardInnerContainer">
                 <!-- relative positions
@@ -40,15 +42,17 @@
         </a-entity>
         
         <a-entity gltf-model="#casing" position="-3 1 -3" scale="0.2 0.2 0.2"></a-entity>
-
+        <a-plane id="js-instructies" text="value: step 1: put the cpu on the motherboard\n step 2: put the cooling on the cpu\n step 3: put the RAM on the motherboard\n step 4: put the power supply in the top left of the case
+                                            step 5: put the motherboard in the bottom left of the case\n step 6: put the ssd storage in the top right of the case\n step 7: put the gpu on the motherboard in the case\n step 8 connect the cables between, the motherboard and the power supply
+                                            the motherboard and the storgae and last the power supply and the storage; font: mozillavr; color: #000000" position="0 1 0"></a-plane>
         <a-entity id="js--gpu" class="js--pickup" gltf-model="models/rtx_3060_ti_low_poly.glb" scale="0.12 0.12 0.12" position="-1 1 0" rotation="180 0 0"></a-entity>
         <a-entity id="js--cpu" class="js--interact js--pickup" gltf-model="models/amd_ryzen_5_3600_cpu.glb" scale="0.05 0.05 0.05" position="-2 1 0" rotation="90 0 0"></a-entity>
         <a-entity id="js--cpuFan" class="js--pickup" gltf-model="models/coaler_master_cpu_fan_animation_included.glb" scale="0.1 0.1 0.1" position="-3 1 0"></a-entity>
         <a-entity id="js--ram1" class="js--pickup" gltf-model="models/ram_corsair_vengeance_lpx.glb" scale="0.055 0.055 0.055" position="2 0.54 -0.17" rotation="90 90 0"></a-entity>
         <a-entity id="js--ram2" class="js--pickup" gltf-model="models/ram_corsair_vengeance_lpx.glb" scale="0.055 0.055 0.055" position="3 1 0.54 -0.17" rotation="90 90 0" visible="false"></a-entity>
-        <a-entity id="js--ssd" class="js--pickup"  gltf-model="models/ssd_solid-state_drive.glb" scale="0.05 0.05 0.05" position="3 1 0" rotation="90 0 0"></a-entity>
-        <a-entity id="js--power" class="js--pickup"  gltf-model="models/power_supply_basic.glb" scale="0.1 0.1 0.1" position="2 1 0" rotation="0 90 0"></a-entity>
-        <a-box scale="1 0.1 0.1"></a-box>
+        <a-entity id="js--ssd" class="js--interact js--pickup"  gltf-model="models/ssd_solid-state_drive.glb" scale="0.05 0.05 0.05" position="3 1 0" rotation="90 0 0"></a-entity>
+        <a-entity id="js--power" class="js--interact js--pickup"  gltf-model="models/power_supply_basic.glb" scale="0.15 0.15 0.15" position="2 1 0" rotation="0 90 0"></a-entity>
+        <a-box id="js--cable1"scale="0.33 0.1 0.1" position="-3.35 1.8 -3.2" visible="false"></a-box>
         <a-sky color="#23b1dc"></a-sky>
     </a-scene>
 </body>
