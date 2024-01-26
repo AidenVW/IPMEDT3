@@ -26,14 +26,14 @@
         
 
         <a-entity id="motherboardContainer">
-            <a-entity position="0 1 -2" id="motherboardInnerContainer">
+            <a-entity position="0 0.5 -1" id="motherboardInnerContainer">
                 <!-- relative positions
                 gpu= position="-0.12 0.31 -0.045"
                 cpu= position="-0.25 0.6 -0.125"
                 cooling= position="-0.25 0.6 -0.1"
                 ram: position="-0.2 0.54 -0.17" & position="-0.16 0.54 -0.17"
                 -->
-                <a-entity id="js--motherboard" class="js--pickup" gltf-model="models/motherboard.glb" scale="0.0025 0.0025 0.0025" position="0 0 0" rotation="0 270 0"></a-entity>
+                <a-entity id="js--motherboard" class="js--pickup" gltf-model="models/motherboard.glb" scale="0.0025 0.0025 0.0025"  rotation="0 270 0"></a-entity>
                 <a-box id="js--gpuSpot" class="" scale="0.2 0.2 0.01" position="-0.37 0.28 -0.15" visible="false"></a-box>
                 <a-box id="js--cpuSpot" class="" scale="0.2 0.2 0.01" position="-0.25 0.6 -0.12" visible="false"></a-box>
                 <a-box id="js--cpuFanSpot" class="" scale="0.2 0.2 0.01" position="-0.25 0.6 -0.1" visible="false"></a-box>
@@ -42,15 +42,17 @@
         </a-entity>
         
         <a-entity gltf-model="#casing" position="-3 1 -3" scale="0.2 0.2 0.2"></a-entity>
-        <a-plane id="js-instructies" text="value: step 1: put the cpu on the motherboard\n step 2: put the cooling on the cpu\n step 3: put the RAM on the motherboard\n step 4: put the power supply in the top left of the case
-                                            step 5: put the motherboard in the bottom left of the case\n step 6: put the ssd storage in the top right of the case\n step 7: put the gpu on the motherboard in the case\n step 8 connect the the power supply to the motherboard then, the motherboard to the ssd storgae and last the ssd storage to the power supply; font: mozillavr; color: #000000" position="0 1 0"></a-plane>
-        <a-entity id="js--gpu" class="js--pickup" gltf-model="models/rtx_3060_ti_low_poly.glb" scale="0.12 0.12 0.12" position="-1 1 0" rotation="180 0 0"></a-entity>
-        <a-entity id="js--cpu" class="js--interact js--pickup" gltf-model="models/amd_ryzen_5_3600_cpu.glb" scale="0.05 0.05 0.05" position="-2 1 0" rotation="90 0 0"></a-entity>
-        <a-entity id="js--cpuFan" class="js--pickup" gltf-model="models/coaler_master_cpu_fan_animation_included.glb" scale="0.1 0.1 0.1" position="-3 1 0"></a-entity>
-        <a-entity id="js--ram1" class="js--pickup" gltf-model="models/ram_corsair_vengeance_lpx.glb" scale="0.055 0.055 0.055" position="2 0.54 -0.17" rotation="90 90 0"></a-entity>
-        <a-entity id="js--ram2" class="js--pickup" gltf-model="models/ram_corsair_vengeance_lpx.glb" scale="0.055 0.055 0.055" position="3 1 0.54 -0.17" rotation="90 90 0" visible="false"></a-entity>
-        <a-entity id="js--ssd" class="js--pickup"  gltf-model="models/ssd_solid-state_drive.glb" scale="0.05 0.05 0.05" position="3 1 0" rotation="90 0 0"></a-entity>
-        <a-entity id="js--power" class="js--pickup"  gltf-model="models/power_supply_basic.glb" scale="0.15 0.15 0.15" position="2 1 0" rotation="0 90 0"></a-entity>
+        <a-entity id="js-instructies" text="value: step 1: put the cpu on the motherboard\n step 2: put the cooling on the cpu\n step 3: put the RAM on the motherboard\n step 4: put the power supply in the top left of the case
+                                            step 5: put the motherboard in the bottom left of the case\n step 6: put the ssd storage in the top right of the case\n step 7: put the gpu on the motherboard in the case\n step 8 connect the the power supply to the motherboard then, the motherboard to the ssd storgae and last the ssd storage to the power supply; font: mozillavr; color: #000000" position="0 2 -2" scale="2 2 2"></a-entity>
+        <a-entity text="value: The cpu fan, cpu and a ram stick; font: mozillavr; color: #000000" position="-1 1 0" rotation="0 90 0"></a-entity>
+        <a-entity text="value: The gpu, ssd and power supply; font: mozillavr; color: #000000" position="1 1 0" rotation="0 -90 0"></a-entity>
+        <a-entity id="js--gpu" class="js--pickup" gltf-model="models/rtx_3060_ti_low_poly.glb" scale="0.12 0.12 0.12" position="1.5 1 -1" rotation="180 0 0"></a-entity>
+        <a-entity id="js--cpu" class="js--interact js--pickup" gltf-model="models/amd_ryzen_5_3600_cpu.glb" scale="0.05 0.05 0.05" position="-2 1 -1" rotation="90 0 0"></a-entity>
+        <a-entity id="js--cpuFan" class="js--pickup" gltf-model="models/coaler_master_cpu_fan_animation_included.glb" scale="0.1 0.1 0.1" position="-2.5 1 -1"></a-entity>
+        <a-entity id="js--ram1" class="js--pickup" gltf-model="models/ram_corsair_vengeance_lpx.glb" scale="0.055 0.055 0.055" position="-1.5 1 -1" rotation="90 90 0"></a-entity>
+        <a-entity id="js--ram2" class="js--pickup" gltf-model="models/ram_corsair_vengeance_lpx.glb" scale="0.055 0.055 0.055" position="3 1 0.54 -1" rotation="90 90 0" visible="false"></a-entity>
+        <a-entity id="js--ssd" class="js--pickup"  gltf-model="models/ssd_solid-state_drive.glb" scale="0.05 0.05 0.05" position="2 1 -1" rotation="90 0 -1"></a-entity>
+        <a-entity id="js--power" class="js--pickup"  gltf-model="models/power_supply_basic.glb" scale="0.15 0.15 0.15" position="3 1 -1" rotation="0 90 -1"></a-entity>
         <a-box id="js--cable1"scale="0.33 0.05 0.05" position="-3.35 1.8 -3.2" visible="false" color="#111111"></a-box>
         <a-box id="js--cable2" scale="0.05 0.5 0.05" position="-3.5 1.5 -3.2" visible="false" color="#111111"></a-box>
         <a-box id="js--cable3" scale="0.05 0.45 0.05" position="-3.2 1.4 -3.2" rotation="0 0 -20" visible="false" color="#111111"></a-box>

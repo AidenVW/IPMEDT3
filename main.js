@@ -100,7 +100,6 @@ window.onload = () => {
         document.addEventListener('click', function(event){
             if(event.target.id == nextButton){
                 cableWant.setAttribute('visible', 'true')
-                let audio = new Audio("audio/correct_answer.mp3")
             }
         })
     }
