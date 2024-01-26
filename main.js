@@ -11,6 +11,7 @@ window.onload = () => {
     var powerCheck = null
     var ssdCheck = null
 
+    //checks which part is held and places it at the correct position
     function partPlacer(part) {
 
         switch(part){
@@ -93,7 +94,7 @@ window.onload = () => {
         power.addEventListener('click', function(){buttonHandler('js--motherboard', 'js--cable2')})
         motherboard.addEventListener('click', function(){buttonHandler('js--ssd', 'js--cable3')})
     }
-
+   
     function buttonHandler(nextButton, cable){
         let cableWant = document.getElementById(cable)
         console.log('hey')
@@ -103,7 +104,7 @@ window.onload = () => {
             }
         })
     }
-
+    //specific function for picking up motherboard because checkPickup didn't work
     function pickUpMotherboard(){
         const motherboard = document.getElementById('js--motherboard')
         const motherboardInnerContainer = document.getElementById('motherboardInnerContainer')
@@ -148,7 +149,7 @@ window.onload = () => {
         placesCasing = document.getElementsByClassName('js--placesCasing');
         checkPlacing()
     }
-
+    //allows for picking up the parts
     function checkPickup() {
         for (let i = 0; i < pickups.length; i++) {
             pickups[i].addEventListener('click', function (evt) {
