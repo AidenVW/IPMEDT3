@@ -93,14 +93,25 @@ window.onload = () => {
         ssd.addEventListener('click', function(){buttonHandler('js--power', 'js--cable1')})
         power.addEventListener('click', function(){buttonHandler('js--motherboard', 'js--cable2')})
         motherboard.addEventListener('click', function(){buttonHandler('js--ssd', 'js--cable3')})
+
     }
    
     function buttonHandler(nextButton, cable){
         let cableWant = document.getElementById(cable)
-        console.log('hey')
         document.addEventListener('click', function(event){
             if(event.target.id == nextButton){
                 cableWant.setAttribute('visible', 'true')
+
+                //Check the visibility of all the cables
+                //If all cables are connected, play the completion sound
+                let cable1check = document.getElementById('js--cable1').getAttribute("visible")
+                let cable2check = document.getElementById('js--cable2').getAttribute("visible")
+                let cable3check = document.getElementById('js--cable3').getAttribute("visible")
+
+                if (cable1check == true && cable2check == true && cable3check == true) {
+                    let audio = new Audio("audio/complete.mp3")
+                    audio.play()
+                }
             }
         })
     }
