@@ -90,6 +90,8 @@ window.onload = () => {
         motherboard.setAttribute('class', 'js--interact')
 
         ssd.addEventListener('click', function(){buttonHandler('js--power', 'js--cable1')})
+        power.addEventListener('click', function(){buttonHandler('js--motherboard', 'js--cable2')})
+        motherboard.addEventListener('click', function(){buttonHandler('js--ssd', 'js--cable3')})
     }
 
     function buttonHandler(nextButton, cable){
@@ -98,6 +100,7 @@ window.onload = () => {
         document.addEventListener('click', function(event){
             if(event.target.id == nextButton){
                 cableWant.setAttribute('visible', 'true')
+                let audio = new Audio("audio/correct_answer.mp3")
             }
         })
     }
